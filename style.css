@@ -9,7 +9,6 @@
 
 .grid-item {
     flex: 1;
-    border: 1px black solid;
 }
 
 .grid-row {
