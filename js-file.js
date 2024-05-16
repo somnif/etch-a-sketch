@@ -7,7 +7,6 @@ let gridWidth = INITIAL_SIZE;
 let gridHeight = INITIAL_SIZE;
 
 const drawGrid = () => {
-    console.log("drawing a grid to" + gridHeight)
     container.innerText = "";
     for (let i = 0; i < gridHeight; i++){
         let row = document.createElement("div")
@@ -17,9 +16,7 @@ const drawGrid = () => {
             let grid = document.createElement("div")
             grid.setAttribute("class", "grid-item")
             row.appendChild(grid)
-            grid.addEventListener("mouseover", (e) => {
-                e.target.setAttribute("style", "background-color: black")
-            })
+            grid.addEventListener("mouseover", setBackgroundColor)
         }
         container.appendChild(row)
     }
@@ -27,7 +24,6 @@ const drawGrid = () => {
 
 const promptUser = () => {
     let newSize = parseInt(prompt("Please enter a new grid size"));
-    console.log (newSize)
     if (Number.isInteger(newSize) && newSize <= 100 && 1 <= newSize){
         newGrid (newSize)
     } else {
@@ -36,11 +32,27 @@ const promptUser = () => {
 }
 
 const newGrid = (size) => {
-    console.log("Resizing to " + size)
     gridWidth = size;
     gridHeight = size;
     drawGrid();
 }
+
+const setBackgroundColor = (element) => {
+    ;
+    if (!element.target.style.backgroundColor) {
+        console.log (genRandColor())
+        element.target.style.backgroundColor = "#" + genRandColor();
+        element.target.style.opacity = "0.5"
+    } else {
+        if (parseFloat(element.target.style.opacity) < 1) {
+            element.target.style.opacity = (parseFloat(element.target.style.opacity) + 0.1).toString();
+        }
+    }
+}
+
+const genRandColor = () => {
+    return Math.floor(Math.random()*16777215).toString(16)};
+
 
 promptButton.addEventListener("click", promptUser)
 resetButton.addEventListener("click", drawGrid)
