@@ -16,3 +16,10 @@
     display: flex;
     flex: 1;
 }
+
+#options-row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 800px;
+    margin: 10px auto;
+}
