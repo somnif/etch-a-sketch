@@ -13,6 +13,9 @@ const drawGrid = (width, height) => {
             let grid = document.createElement("div")
             grid.setAttribute("class", "grid-item")
             row.appendChild(grid)
+            grid.addEventListener("mouseover", (e) => {
+                e.target.setAttribute("style", "background-color: black")
+            })
         }
         container.appendChild(row)
     }
