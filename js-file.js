@@ -1,10 +1,13 @@
 const container = document.querySelector("#container")
 const promptButton = document.querySelector("#btn-prompt")
 const resetButton = document.querySelector("#btn-reset")
+const colorModeBox = document.querySelector("#color-mode")
+const colorMode = document.querySelectorAll("#color-mode > span")
 
 const INITIAL_SIZE = 16;
 let gridWidth = INITIAL_SIZE;
 let gridHeight = INITIAL_SIZE;
+let colorToggle = false;
 
 const drawGrid = () => {
     container.innerText = "";
@@ -40,8 +43,7 @@ const newGrid = (size) => {
 const setBackgroundColor = (element) => {
     ;
     if (!element.target.style.backgroundColor) {
-        console.log (genRandColor())
-        element.target.style.backgroundColor = "#" + genRandColor();
+        element.target.style.backgroundColor = colorToggle ? genRandColor() : "#000";
         element.target.style.opacity = "0.5"
     } else {
         if (parseFloat(element.target.style.opacity) < 1) {
@@ -51,11 +53,18 @@ const setBackgroundColor = (element) => {
 }
 
 const genRandColor = () => {
-    return Math.floor(Math.random()*16777215).toString(16)};
+    return "#" + Math.floor(Math.random()*16777215).toString(16)};
 
+const enableColorMode = () => {
+    colorToggle = !colorToggle;
+    colorMode.forEach((letter) => {
+        letter.setAttribute("style", "color: " + (colorToggle ? genRandColor() : "#000"))
+    })
+}
 
 promptButton.addEventListener("click", promptUser)
 resetButton.addEventListener("click", drawGrid)
+colorModeBox.addEventListener("click", enableColorMode)
 
 window.addEventListener("load", drawGrid, {
     once: true
